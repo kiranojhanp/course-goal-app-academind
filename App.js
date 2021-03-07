@@ -1,69 +1,49 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  FlatList,
-  Button,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 
 export default function App() {
   const [outputText, setOutputText] = useState("Hello, World");
   return (
-    <View style={styles.screen}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          flex: 1,
-        }}
-      >
-        <TextInput placeholder="Please enter a name" style={styles.textInput} />
-        <Button title="ADD" />
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          flex: 1,
-        }}
-      >
-        <TextInput placeholder="Please enter a name" style={styles.textInput} />
-        <Button title="ADD" />
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          flex: 1,
-        }}
-      >
-        <TextInput placeholder="Please enter a name" style={styles.textInput} />
-        <Button title="ADD" />
-      </View>
-      <StatusBar style="dark" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.text}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
+     
+              sapiente nemo eligendi possimus delectus corrupti ad, assumenda,
+ 
+                  minima nam facere ratione ea repudiandae incidunt distinctio maiores
+  
+                 sequi? Vitae consequuntur doloribus porro, dignissimos totam ducimus
+   
+                accusamus optio possimus reiciendis? Tempora voluptatibus quidem
+    
+               similique adipisci sapiente aspernatur fugiat beatae, officia fuga
+      
+             dolore nemo voluptas maiores architecto et exercitationem laudantium
+       
+            sit mollitia dolores ratione facere assumenda? Modi necessitatibus
+        
+           vitae, dolores reiciendis cum ad perferendis hic quaerat cupiditate!
+         
+          Quis veniam veritatis voluptatum harum obcaecati.
+        </Text>
+        <StatusBar style="dark" />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    padding: 50,
-    flexDirection: "column",
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "space-evenly",
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
   },
-  textInput: {
-    height: 30,
-    width: "50%",
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
+  scrollView: {
+    backgroundColor: "pink",
+    marginHorizontal: 20,
+  },
+  text: {
+    fontSize: 42,
   },
 });
