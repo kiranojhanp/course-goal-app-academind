@@ -1,49 +1,63 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
+import { StyleSheet, View, Button, FlatList } from "react-native";
+
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  const [outputText, setOutputText] = useState("Hello, World");
+  const [courseGoals, setCourseGoals] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false);
+
+  const addGoalHandler = (goalContent) => {
+    setCourseGoals((currentGoals) => [
+      ...courseGoals,
+      { id: currentGoals.length, value: goalContent },
+    ]);
+    setIsAddMode(false);
+  };
+
+  const removeGoalHandler = (goalID) => {
+    setCourseGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== goalID);
+    });
+  };
+
+  const cancelGoalHandler = () => {
+    setIsAddMode(false);
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <Text style={styles.text}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
-     
-              sapiente nemo eligendi possimus delectus corrupti ad, assumenda,
- 
-                  minima nam facere ratione ea repudiandae incidunt distinctio maiores
-  
-                 sequi? Vitae consequuntur doloribus porro, dignissimos totam ducimus
-   
-                accusamus optio possimus reiciendis? Tempora voluptatibus quidem
-    
-               similique adipisci sapiente aspernatur fugiat beatae, officia fuga
-      
-             dolore nemo voluptas maiores architecto et exercitationem laudantium
-       
-            sit mollitia dolores ratione facere assumenda? Modi necessitatibus
-        
-           vitae, dolores reiciendis cum ad perferendis hic quaerat cupiditate!
-         
-          Quis veniam veritatis voluptatum harum obcaecati.
-        </Text>
-        <StatusBar style="dark" />
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.root}>
+      <Button title="Add new Goal" onPress={() => setIsAddMode(true)} />
+      <GoalInput
+        visible={isAddMode}
+        addGoalHandler={addGoalHandler}
+        onCancel={cancelGoalHandler}
+      />
+
+      <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        data={courseGoals}
+        renderItem={(itemData) => (
+          <GoalItem
+            courseID={itemData.item.id}
+            onDelete={removeGoalHandler}
+            title={itemData.item.value}
+          />
+        )}
+      ></FlatList>
+
+      <StatusBar style="dark" />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
-  },
-  scrollView: {
-    backgroundColor: "pink",
-    marginHorizontal: 20,
-  },
-  text: {
-    fontSize: 42,
+    padding: 50,
   },
 });
+
+// #4ebc7a #f5a942 #e93e43 my colors
