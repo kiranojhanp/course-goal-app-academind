@@ -1,63 +1,35 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, View, Button, FlatList } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import GoalItem from "./components/GoalItem";
-import GoalInput from "./components/GoalInput";
+import Header from "./components/Header";
+import StartGameScreen from "./screens/StartGameScreen";
+import GameScreen from "./screens/GameScreen";
 
 export default function App() {
-  const [courseGoals, setCourseGoals] = useState([]);
-  const [isAddMode, setIsAddMode] = useState(false);
+  console.reportErrorsAsExceptions = false;
 
-  const addGoalHandler = (goalContent) => {
-    setCourseGoals((currentGoals) => [
-      ...courseGoals,
-      { id: currentGoals.length, value: goalContent },
-    ]);
-    setIsAddMode(false);
+  const [userNumber, setUserNumber] = useState("");
+
+  const startGameHandler = (selectedNumber) => {
+    setUserNumber(selectedNumber);
   };
 
-  const removeGoalHandler = (goalID) => {
-    setCourseGoals((currentGoals) => {
-      return currentGoals.filter((goal) => goal.id !== goalID);
-    });
-  };
+  let content = <StartGameScreen onStartGame={startGameHandler} />;
 
-  const cancelGoalHandler = () => {
-    setIsAddMode(false);
-  };
+  if (userNumber) {
+    content = <GameScreen userChoice={userNumber} />;
+  }
 
   return (
-    <View style={styles.root}>
-      <Button title="Add new Goal" onPress={() => setIsAddMode(true)} />
-      <GoalInput
-        visible={isAddMode}
-        addGoalHandler={addGoalHandler}
-        onCancel={cancelGoalHandler}
-      />
-
-      <FlatList
-        keyExtractor={(item, index) => index.toString()}
-        data={courseGoals}
-        renderItem={(itemData) => (
-          <GoalItem
-            courseID={itemData.item.id}
-            onDelete={removeGoalHandler}
-            title={itemData.item.value}
-          />
-        )}
-      ></FlatList>
-
-      <StatusBar style="dark" />
+    <View style={styles.screen}>
+      <Header title="Guess a Number" />
+      {content}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  root: {
+  screen: {
     flex: 1,
-    padding: 50,
   },
 });
-
-// #4ebc7a #f5a942 #e93e43 my colors
