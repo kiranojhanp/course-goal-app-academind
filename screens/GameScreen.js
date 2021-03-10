@@ -6,6 +6,7 @@ import {
   Button,
   Alert,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 import DefaultStyle from "../constants/default-style";
@@ -94,9 +95,13 @@ const GameScreen = (props) => {
           <Ionicons name="md-add" size={24} color="white" />
         </MainButton>
       </Card>
-      <ScrollView>
-        {pastGuesses.map((guess) => renderListItem(guess))}
-      </ScrollView>
+      <View style={styles.listContainer}>
+        <ScrollView contentContainerStyle={styles.list}>
+          {pastGuesses.map((guess, index) =>
+            renderListItem(guess, pastGuesses.length - index)
+          )}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -114,14 +119,25 @@ const styles = StyleSheet.create({
     width: 300,
     maxWidth: "90%",
   },
-  // listItem: {
-  //   borderColor: "#ccc",
-  //   borderWidth: 1,
-  //   padding: 15,
-  //   marginVertical: 10,
-  //   backgroundColor: "white",
-  //   flexDirection: "row",
-  // },
+  listContainer: {
+    width: "80%",
+    flex: 1,
+  },
+  list: {
+    flexGrow: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  listItem: {
+    borderColor: "#ccc",
+    borderWidth: 1,
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "60%",
+  },
 });
 
 export default GameScreen;
