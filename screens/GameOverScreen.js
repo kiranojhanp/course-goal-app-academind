@@ -14,11 +14,11 @@ const GameOverScreen = (props) => {
         <Image
           fadeDuration={1000}
           style={styles.image}
-          // source={require("../assets/success.png")}
-          source={{
-            uri:
-              "https://i.pinimg.com/originals/7b/f1/d1/7bf1d1a24f3e6d434e8c9cc5f515700b.gif",
-          }}
+          source={require("../assets/congrats.gif")}
+          // source={{
+          //   uri:
+          //     "https://i.pinimg.com/originals/7b/f1/d1/7bf1d1a24f3e6d434e8c9cc5f515700b.gif",
+          // }}
           resizeMode="cover"
         />
       </View>
