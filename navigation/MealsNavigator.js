@@ -28,6 +28,7 @@ const MealsNavigator = createStackNavigator(
       headerTintColor:
         Platform.OS === "android" ? "white" : Colors.primaryColor,
       headerTitle: "A generic screen",
+      headerBackTitleVisible: false,
     },
   }
 );
