@@ -1,23 +1,18 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-
-import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
-import { enableScreens } from "react-native-screens";
-
-// Navigation
-import MealsNavigator from "./navigation/MealsNavigator";
-
-import { Provider } from "react-redux";
-
-import mealsReducer from "./store/reducers/meals";
 import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import { AppLoading } from "expo-app-loading";
+import * as Font from "expo-font";
 
-enableScreens();
+import productsReducer from "./store/reducers/products";
+import cartReducer from "./store/reducers/cart";
+import ordersReducer from "./store/reducers/orders";
+import ShopNavigator from "./navigation/ShopNavigator";
 
-// For redux store
 const rootReducer = combineReducers({
-  meals: mealsReducer,
+  products: productsReducer,
+  cart: cartReducer,
+  orders: ordersReducer,
 });
 
 const store = createStore(rootReducer);
@@ -41,11 +36,9 @@ export default function App() {
       />
     );
   }
-
   return (
     <Provider store={store}>
-        <MealsNavigator />
+      <ShopNavigator />
     </Provider>
-    // <StatusBar style="dark" />
   );
 }
